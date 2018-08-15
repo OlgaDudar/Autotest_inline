@@ -99,13 +99,8 @@ public class test_1 {
     public void test_5() {
         String[] str = new String[0];
         str = new String[]{};
-        WebElement menu_el = driver.findElement(By.xpath("//*[contains(text(),\"Новини\")]"));
+        WebElement menu_el = driver.findElement(By.xpath("//p[contains(text(),\"Новини\")]"));
         menu_el.click();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         driver.switchTo().frame("TPASection_jdbkbazeiframe");
         checkMenuItem(str, "Всі дописи");
 
