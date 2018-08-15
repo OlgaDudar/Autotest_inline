@@ -4,6 +4,7 @@ import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -20,8 +21,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class test_1 {
     private static volatile test_1 instance;
+    public WebDriver driver;
 
-    private test_1(){
+
+
+    private test_1() {
     }
 
     public static test_1 getInstance() {
@@ -32,17 +36,13 @@ public class test_1 {
         }
         return instance;
     }
-    WebDriver driver;
+
 
     public void checkMenuItem(String[] menuItem, String ExpText){
         for (int i=0; i<menuItem.length; i++) {
-            WebElement menu_el = driver.findElement(By.partialLinkText(menuItem[i]));
+            WebElement menu_el = driver.findElement(By.xpath("//p[contains(text(),\""+menuItem[i]+"\")]"));
             menu_el.click();
-        }
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
         }
         Assert.assertTrue(driver.findElement(By.xpath("//*[contains(text(),\""+ExpText+"\")]")).isEnabled(), ExpText+" Text not found!");
 
@@ -55,6 +55,7 @@ public class test_1 {
         System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get("http://inlinelviv.com/");
         driver.manage().window().maximize();
     }
@@ -64,11 +65,6 @@ public class test_1 {
         String[] str = new String[1];
         str = new String[]{"Галерея"};
         checkMenuItem(str, "");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         driver.switchTo().frame("comp-jd0hhh6eiframe");
         Boolean img = this.driver.findElement(By.xpath("//*[@class=\"imgContainer ng-scope\"]")).isDisplayed();
         System.out.println(img);
@@ -103,8 +99,13 @@ public class test_1 {
     public void test_5() {
         String[] str = new String[0];
         str = new String[]{};
-        WebElement menu_el = driver.findElement(By.partialLinkText("Новини"));
+        WebElement menu_el = driver.findElement(By.xpath("//*[contains(text(),\"Новини\")]"));
         menu_el.click();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         driver.switchTo().frame("TPASection_jdbkbazeiframe");
         checkMenuItem(str, "Всі дописи");
 
