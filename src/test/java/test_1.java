@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class test_1 {
     private static volatile test_1 instance;
-    public WebDriver driver;
+    WebDriver driver;
 
 
 
@@ -42,7 +42,6 @@ public class test_1 {
         for (int i=0; i<menuItem.length; i++) {
             WebElement menu_el = driver.findElement(By.xpath("//p[contains(text(),\""+menuItem[i]+"\")]"));
             menu_el.click();
-
         }
         Assert.assertTrue(driver.findElement(By.xpath("//*[contains(text(),\""+ExpText+"\")]")).isEnabled(), ExpText+" Text not found!");
 
@@ -53,7 +52,7 @@ public class test_1 {
     @BeforeMethod
     public void before(){
         System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver.exe");
-        driver = new ChromeDriver();
+        driver = WebDriverSingleton.getInstance();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(driver, 20);
         driver.get("http://inlinelviv.com/");
@@ -113,12 +112,9 @@ public class test_1 {
         String[] str = new String[1];
         str = new String[]{"Корисні посилання"};
         checkMenuItem(str, "прокат");
-
-       // menu_el.click();
         System.out.println(driver.getCurrentUrl());
         WebElement link = driver.findElement(By.partialLinkText("http://rollersport.com.ua/"));
         link.click();
-
         driver.switchTo().window(driver.getWindowHandles().toArray()[1].toString());
         String expectedText_1 = "Українська Федерація Роликового Спорту";
         Assert.assertTrue(driver.getPageSource().contains(expectedText_1), expectedText_1+" Text not found!");
@@ -129,7 +125,8 @@ public class test_1 {
 
     @AfterMethod
     public void after(){
-        driver.close();
-        driver.quit();
+        //driver.close();
+        //driver.quit();
+
     }
 }
