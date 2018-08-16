@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -18,7 +19,14 @@ public class BaseTestClass {
     public BaseTestClass() {
         ;
     }
+    public void checkMenuItem(String[] menuItem, String ExpText){
+        for (int i=0; i<menuItem.length; i++) {
+            WebElement menu_el = driver.findElement(By.xpath("//p[contains(text(),\""+menuItem[i]+"\")]"));
+            menu_el.click();
+        }
+        Assert.assertTrue(driver.findElement(By.xpath("//*[contains(text(),\""+ExpText+"\")]")).isEnabled(), ExpText+" Text not found!");
 
+    }
     @BeforeMethod
     public void before(){
         System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver.exe");
