@@ -6,7 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
  */
 public class WebDriverSingleton {
 
-    public static WebDriver driver;
+    private static WebDriver driver;
+
 
     private WebDriverSingleton() {
         ;
@@ -18,6 +19,16 @@ public class WebDriverSingleton {
         }
         return driver;
     }
+
+    /*ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>() // thread local driver object for webdriver
+    {
+        public ThreadLocal<WebDriver> getInstance() {
+            if (driver == null) {
+                driver = new ThreadLocal<WebDriver>();
+            }
+            return driver;
+        }
+    };*/
 
 }
 

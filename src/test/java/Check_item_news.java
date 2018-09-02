@@ -11,9 +11,9 @@ public class Check_item_news extends BaseTestClass {
     public void test_1() {
         String[] str = new String[0];
         str = new String[]{};
-        WebElement menu_el = driver.findElement(By.xpath("//p[contains(text(),\"Новини\")]"));
+        WebElement menu_el = WebDriverSingleton.getInstance().findElement(By.xpath("//p[contains(text(),\"Новини\")]"));
         menu_el.click();
-        driver.switchTo().frame("TPASection_jdbkbazeiframe");
+        WebDriverSingleton.getInstance().switchTo().frame("TPASection_jdbkbazeiframe");
         checkMenuItem(str, "Всі дописи");
 
 
