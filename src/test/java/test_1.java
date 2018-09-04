@@ -93,7 +93,7 @@ public class test_1 extends BaseTestClass {
         str = new String[]{"Корисні посилання"};
         checkMenuItem(str, "прокат");
         System.out.println(WebDriverSingleton.getInstance().getCurrentUrl());
-        WebElement link = WebDriverSingleton.getInstance().findElement(By.partialLinkText("http://rollersport.com.ua/"));
+        WebElement link = WebDriverSingleton.getInstance().findElement(By.xpath("//a[contains(@href,'http://rollersport.com.ua/')]"));
         link.click();
         WebDriverSingleton.getInstance().switchTo().window(WebDriverSingleton.getInstance().getWindowHandles().toArray()[1].toString());
         String expectedText_1 = "Українська Федерація Роликового Спорту";
