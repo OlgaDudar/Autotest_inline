@@ -107,7 +107,7 @@ public class test_1 extends BaseTestClass {
 
     }
 
-    @Test
+    @Test(description="Test with PageObjectModel", groups={"funct"})
     public void clearTest(){
         MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
         NewsPage newsPage;
