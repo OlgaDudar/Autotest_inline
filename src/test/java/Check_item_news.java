@@ -9,6 +9,8 @@ import org.testng.annotations.Test;
 public class Check_item_news extends BaseTestClass {
     @Test
     public void test_1() {
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        mainPage.openSite();
         String[] str = new String[0];
         str = new String[]{};
         WebElement menu_el = WebDriverSingleton.getInstance().findElement(By.xpath("//p[contains(text(),\"Новини\")]"));

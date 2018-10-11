@@ -15,21 +15,8 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 public class test_1 extends BaseTestClass {
     private static volatile test_1 instance;
 
-
     private test_1() {
     }
-
-    @Test
-    public void clearTest(){
-        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
-        NewsPage newsPage;
-        newsPage = mainPage.openSite().clickMenuNews();
-        newsPage.selectLastNews();
-        newsPage.scrollToNewOne();
-
-        Assert.assertTrue(newsPage.getLastNewsTitle().equals("Last News"), "Incorrect news titile");
-    }
-
 
     @Test(description="Check menu item Галерея", groups={"funct"})
     public void test_1() {
@@ -41,8 +28,8 @@ public class test_1 extends BaseTestClass {
         WebDriverSingleton.getInstance().switchTo().frame("comp-jd0hhh6eiframe");
         Boolean img = WebDriverSingleton.getInstance().findElement(By.xpath("//*[@class=\"imgContainer ng-scope\"]")).isDisplayed();
         System.out.println(img);
-        System.out.println(WebDriverSingleton.getInstance().getCurrentUrl().equals("https://www.inlinelviv.com/media"));
-        Assert.assertTrue((WebDriverSingleton.getInstance().getCurrentUrl().equals("https://www.inlinelviv.com/media"))&&img, " Page not loaded");
+        System.out.println(WebDriverSingleton.getInstance().getCurrentUrl().equals("https://olegregist.wixsite.com/skateslviv/media"));
+        Assert.assertTrue((WebDriverSingleton.getInstance().getCurrentUrl().equals("https://olegregist.wixsite.com/skateslviv/media"))&&img, " Page not loaded");
 
     }
 
@@ -92,7 +79,6 @@ public class test_1 extends BaseTestClass {
     public void test_6(){
         MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
         mainPage.openSite();
-        Set<String> browserTabs = WebDriverSingleton.getInstance().getWindowHandles();
         String[] str = new String[1];
         str = new String[]{"Корисні посилання"};
         checkMenuItem(str, "прокат");
@@ -105,18 +91,30 @@ public class test_1 extends BaseTestClass {
 
     }
     @Test(description="Execute JS from web driver", groups={"funct"})
-    public void test_7(){
+    public void test_7() throws InterruptedException {
         MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
         mainPage.openSite();
         log.println("Site is open");
         JavascriptExecutor js = (JavascriptExecutor) WebDriverSingleton.getInstance();
         WebElement button =WebDriverSingleton.getInstance().findElement(By.cssSelector("#comp-jdof8h9gimgimage"));
-        js.executeScript("arguments[0].click();", button);
-
-        Assert.assertTrue((WebDriverSingleton.getInstance().getCurrentUrl().equals("https://olegregist.wixsite.com/skateslviv/index-eng")), " Page not loaded");
+        js.executeScript("arguments[0].click()", button);
+        String[] str;
+        str = str = new String[]{};
+        checkMenuItem(str, "Dear visitor");
         String TitleName = js.executeScript("return document.title;").toString();
         System.out.println("Title of the page = "+TitleName);
-        js.executeScript("alert('Welcome to inline');");
+        Assert.assertTrue((WebDriverSingleton.getInstance().getCurrentUrl().equals("https://olegregist.wixsite.com/skateslviv/index-eng")), " Page not loaded");
+
+    }
+
+    @Test
+    public void clearTest(){
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        NewsPage newsPage;
+        newsPage = mainPage.openSite().clickMenuNews();
+        newsPage.selectLastNews();
+        newsPage.scrollToNewOne();
+        Assert.assertTrue(newsPage.getLastNewsTitle().equals("Last News"), "Incorrect news titile");
     }
 
 }

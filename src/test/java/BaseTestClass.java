@@ -27,17 +27,15 @@ public class BaseTestClass {
     }
     @BeforeMethod(groups = "funct")
     public void before(){
-       // System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver.exe");
-        //driver = WebDriverSingleton.getInstance();
+
         WebDriverSingleton.getInstance().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(WebDriverSingleton.getInstance(), 20);
-//        WebDriverSingleton.getInstance().get("http://inlinelviv.com/");
         WebDriverSingleton.getInstance().manage().window().maximize();
     }
     @BeforeClass(groups = "funct")
     public void init() throws IOException {
         System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver.exe");
-        //WebDriverSingleton.getInstance() = WebDriverSingleton.getInstance();
+
     }
 
     @AfterMethod
@@ -46,32 +44,6 @@ public class BaseTestClass {
         //WebDriverSingleton.getInstance().quit();
 
     }
-
-    @AfterClass
-    public void after_class(){
-     //   driver.close();
-     //   driver.quit();
-
-    }
-
-            /*protected setUpBeforeTestClass() {
-            // ініціалізувати драйвер браузера, підключитися до серверів
-            }
-
-             protected  setUpBeforeTestMethod ()  {
-            ініціалізувати testPage
-            // входити в додаток, якщо необхідно
-            }
-
-            protected  tearDownAfterTestMethod ()  {
-            // вийти з програми, при необхідності
-            }
-
-           protected   tearDownAfterTestClass ()  {
-            // закрити з'єднання, закрити браузер у міру необхідності
-            }
-
-    */
 
     @AfterSuite(groups = {"funct"})
     public void after_suit(){

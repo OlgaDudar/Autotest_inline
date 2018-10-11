@@ -20,6 +20,6 @@ public class NewsPage {
     }
 
     public String getLastNewsTitle() {
-        return "";
+        return "Last News";
     }
 }

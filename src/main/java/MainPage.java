@@ -15,7 +15,6 @@ public class MainPage {
     public MainPage(WebDriver driver) {
         this.driver = driver;
 
-        //newsMenu_xpath = "//p[contains(text(),'Новини')]";
     }
 
     public MainPage openSite() {
