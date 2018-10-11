@@ -8,14 +8,20 @@ import org.openqa.selenium.support.FindBy;
  */
 public class MainPage {
 
-    WebDriver driver;
+    private WebDriver driver;
 
-    String newsMenu_xpath = "//div[class='news']";
+    String newsMenu_xpath="//p[contains(text(),\"Новини\")]";
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
+
+        //newsMenu_xpath = "//p[contains(text(),'Новини')]";
     }
 
+    public MainPage openSite() {
+        driver.get("https://olegregist.wixsite.com/skateslviv");
+        return this;
+    }
 
     public NewsPage clickMenuNews() {
         driver.findElement(By.xpath(newsMenu_xpath)).click();

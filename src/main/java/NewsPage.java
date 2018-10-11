@@ -11,7 +11,7 @@ public class NewsPage {
         this.driver = driver;
     }
 
-    public NewsPage selectLastNesw() {
+    public NewsPage selectLastNews() {
         return this;
     }
 
@@ -19,7 +19,7 @@ public class NewsPage {
         return this;
     }
 
-    public String getLastNwsTitle() {
+    public String getLastNewsTitle() {
         return "";
     }
 }

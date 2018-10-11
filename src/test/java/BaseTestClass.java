@@ -31,7 +31,7 @@ public class BaseTestClass {
         //driver = WebDriverSingleton.getInstance();
         WebDriverSingleton.getInstance().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         WebDriverWait wait = new WebDriverWait(WebDriverSingleton.getInstance(), 20);
-        WebDriverSingleton.getInstance().get("http://inlinelviv.com/");
+//        WebDriverSingleton.getInstance().get("http://inlinelviv.com/");
         WebDriverSingleton.getInstance().manage().window().maximize();
     }
     @BeforeClass(groups = "funct")

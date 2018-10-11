@@ -17,6 +17,7 @@ public class WebDriverSingleton {
         if (driver == null) {
             driver = new ChromeDriver();
         }
+
         return driver;
     }
 

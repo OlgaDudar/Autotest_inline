@@ -1,20 +1,12 @@
-import jdk.internal.org.objectweb.asm.Handle;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.net.HttpURLConnection;
-import java.util.HashMap;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 
 /**
@@ -31,16 +23,18 @@ public class test_1 extends BaseTestClass {
     public void clearTest(){
         MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
         NewsPage newsPage;
+        newsPage = mainPage.openSite().clickMenuNews();
+        newsPage.selectLastNews();
+        newsPage.scrollToNewOne();
 
-        newsPage = mainPage.clickMenuNews();
-        newsPage.selectLastNesw()
-                .scrollToNewOne();
-        Assert.assertTrue(newsPage.getLastNwsTitle().equals("Last News"), "Incorrect news titile");
+        Assert.assertTrue(newsPage.getLastNewsTitle().equals("Last News"), "Incorrect news titile");
     }
 
 
     @Test(description="Check menu item Галерея", groups={"funct"})
     public void test_1() {
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        mainPage.openSite();
         String[] str = new String[1];
         str = new String[]{"Галерея"};
         checkMenuItem(str, "");
@@ -54,6 +48,8 @@ public class test_1 extends BaseTestClass {
 
     @Test(description="Check menu item Де покататись", groups={"funct"})
     public void test_2() {
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        mainPage.openSite();
         String[] str = new String[2];
         str = new String[]{"Де ...", "... покататись?"};
         checkMenuItem(str, "Місця для катання на роликах");
@@ -61,6 +57,8 @@ public class test_1 extends BaseTestClass {
 
     @Test(description="Check menu item Де купити", groups={"funct"})
     public void test_3() {
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        mainPage.openSite();
         String[] str = new String[2];
         str = new String[]{"Де ...", "... купити?"};
         checkMenuItem(str, "Купівля роликів");
@@ -68,6 +66,8 @@ public class test_1 extends BaseTestClass {
 
     @Test(description="Check menu item Стилі катання", groups={"funct"})
     public void test_4() {
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        mainPage.openSite();
         String[] str = new String[2];
         str = new String[]{"Про Ролики", "Стилі катання"};
         checkMenuItem(str, "Стилі катання на роликах");
@@ -76,6 +76,8 @@ public class test_1 extends BaseTestClass {
 
     @Test(description="Check menu item Новини", groups={"funct"})
     public void test_5() {
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        mainPage.openSite();
         String[] str = new String[0];
         str = new String[]{};
         WebElement menu_el = WebDriverSingleton.getInstance().findElement(By.xpath("//p[contains(text(),\"Новини\")]"));
@@ -88,6 +90,8 @@ public class test_1 extends BaseTestClass {
 
     @Test(description="Check menu item Корисні посилання", groups={"link"})
     public void test_6(){
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        mainPage.openSite();
         Set<String> browserTabs = WebDriverSingleton.getInstance().getWindowHandles();
         String[] str = new String[1];
         str = new String[]{"Корисні посилання"};
@@ -100,6 +104,19 @@ public class test_1 extends BaseTestClass {
         Assert.assertTrue(WebDriverSingleton.getInstance().getPageSource().contains(expectedText_1), expectedText_1+" Text not found!");
 
     }
+    @Test(description="Execute JS from web driver", groups={"funct"})
+    public void test_7(){
+        MainPage mainPage = new MainPage(WebDriverSingleton.getInstance());
+        mainPage.openSite();
+        log.println("Site is open");
+        JavascriptExecutor js = (JavascriptExecutor) WebDriverSingleton.getInstance();
+        WebElement button =WebDriverSingleton.getInstance().findElement(By.cssSelector("#comp-jdof8h9gimgimage"));
+        js.executeScript("arguments[0].click();", button);
 
+        Assert.assertTrue((WebDriverSingleton.getInstance().getCurrentUrl().equals("https://olegregist.wixsite.com/skateslviv/index-eng")), " Page not loaded");
+        String TitleName = js.executeScript("return document.title;").toString();
+        System.out.println("Title of the page = "+TitleName);
+        js.executeScript("alert('Welcome to inline');");
+    }
 
 }
